@@ -2,5 +2,8 @@
 
 // config for RobMellett/HttpLogging
 return [
-    'logging_channel' => 'http_logging'
+    /*
+     *  The Laravel Log Channel to send logs to.
+     */
+    'channel' => 'http_logging'
 ];

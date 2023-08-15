@@ -28,7 +28,7 @@ class HttpLogging
 
     private function logRequest(string $uuid, RequestInterface $request): void
     {
-        $channel = config('http-logging.logging_channel');
+        $channel = config('http-logging.channel');
 
         Log::channel($channel)->debug("Request {$uuid}", [
             'request_id' => $uuid,
@@ -45,7 +45,7 @@ class HttpLogging
 
     private function logResponse(string $uuid, ResponseInterface $response): void
     {
-        $channel = config('http-logging.logging_channel');
+        $channel = config('http-logging.channel');
 
         Log::channel($channel)->debug("Response {$uuid}", [
             'response_id' => $uuid,
