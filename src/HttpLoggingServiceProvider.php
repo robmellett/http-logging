@@ -17,9 +17,6 @@ class HttpLoggingServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('http-logging')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_http-logging_table')
-            ->hasCommand(HttpLoggingCommand::class);
+            ->hasConfigFile();
     }
 }

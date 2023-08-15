@@ -38,6 +38,5 @@ class TestCase extends Orchestra
         $migration = include __DIR__.'/../database/migrations/create_http-logging_table.php.stub';
         $migration->up();
         */
-
     }
 }
