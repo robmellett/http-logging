@@ -26,12 +26,14 @@ class HttpLoggingTest extends TestCase
     {
         $response = Http::withRequestMiddleware(
             function (RequestInterface $request) {
-                logger("This is from the request middleware");
+                logger('This is from the request middleware');
+
                 return $request;
             }
         )->withResponseMiddleware(
             function (ResponseInterface $response) {
-                logger("This is from the response middleware");
+                logger('This is from the response middleware');
+
                 return $response;
             }
         )
@@ -50,13 +52,13 @@ class HttpLoggingTest extends TestCase
         Log::shouldReceive('debug')
             ->once()
             ->withArgs(function ($message) {
-                return $message == "Request 0b65fca7-a768-4832-8401-da52aa2885a9";
+                return $message == 'Request 0b65fca7-a768-4832-8401-da52aa2885a9';
             });
 
         Log::shouldReceive('debug')
             ->once()
             ->withArgs(function ($message) {
-                return $message == "Response 0b65fca7-a768-4832-8401-da52aa2885a9";
+                return $message == 'Response 0b65fca7-a768-4832-8401-da52aa2885a9';
             });
 
         $response = Http::withMiddleware(new HttpLogging())
