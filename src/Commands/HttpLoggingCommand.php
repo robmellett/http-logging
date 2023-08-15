@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace RobMellett\HttpLogging\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class HttpLoggingCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'http-logging';
 
     public $description = 'My command';
 
