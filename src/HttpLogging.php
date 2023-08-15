@@ -15,7 +15,7 @@ class HttpLogging
 
         return function (RequestInterface $request, array $options) use ($handler, $uuid) {
             $this->logRequest($uuid, $request);
-            
+
             return $handler($request, $options)->then(
                 function (ResponseInterface $response) use ($uuid) {
                     $this->logResponse($uuid, $response);
@@ -28,7 +28,9 @@ class HttpLogging
 
     private function logRequest(string $uuid, RequestInterface $request): void
     {
-        Log::debug("Request {$uuid}", [
+        $channel = config('http-logging.logging_channel');
+
+        Log::channel($channel)->debug("Request {$uuid}", [
             'request_id' => $uuid,
             'method' => $request->getMethod(),
             'uri' => [
@@ -43,7 +45,9 @@ class HttpLogging
 
     private function logResponse(string $uuid, ResponseInterface $response): void
     {
-        Log::debug("Response {$uuid}", [
+        $channel = config('http-logging.logging_channel');
+
+        Log::channel($channel)->debug("Response {$uuid}", [
             'response_id' => $uuid,
             'status_code' => $response->getStatusCode(),
             'headers' => $response->getHeaders(),

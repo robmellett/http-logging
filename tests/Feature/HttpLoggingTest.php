@@ -49,13 +49,13 @@ class HttpLoggingTest extends TestCase
             $mock->shouldReceive('uuid')->andReturn('0b65fca7-a768-4832-8401-da52aa2885a9');
         });
 
-        Log::shouldReceive('debug')
+        Log::shouldReceive('channel->debug')
             ->once()
             ->withArgs(function ($message) {
                 return $message == 'Request 0b65fca7-a768-4832-8401-da52aa2885a9';
             });
 
-        Log::shouldReceive('debug')
+        Log::shouldReceive('channel->debug')
             ->once()
             ->withArgs(function ($message) {
                 return $message == 'Response 0b65fca7-a768-4832-8401-da52aa2885a9';
