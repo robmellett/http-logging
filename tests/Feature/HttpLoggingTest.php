@@ -44,7 +44,8 @@ class HttpLoggingTest extends TestCase
         Http::buildHandlerStack()->push(new HttpLogging());
 
         $response = Http::withMiddleware(new HttpLogging())
-            ->get('https://jsonplaceholder.typicode.com/posts');
+            ->asJson()
+            ->get('https://jsonplaceholder.typicode.com/posts?userId=1');
 
         $this->assertTrue($response->ok());
     }
