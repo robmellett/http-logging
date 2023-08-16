@@ -45,6 +45,10 @@ class HttpLoggingTest extends TestCase
     /** @test */
     public function can_fetch_requests_with_middleware_class()
     {
+        config()->set('http-logging.secure_json_formatter.secrets', [
+            'Ym9zY236Ym9zY28=',
+        ]);
+
         $this->mock(Str::class, function (MockInterface $mock) {
             $mock->shouldReceive('uuid')->andReturn('0b65fca7-a768-4832-8401-da52aa2885a9');
         });

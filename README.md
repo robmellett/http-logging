@@ -127,6 +127,9 @@ A Http Request
       "Host": [
         "jsonplaceholder.typicode.com"
       ],
+      "Authorization": [
+        "Bearer [--REDACTED--]"
+      ],
       "Content-Type": [
         "application/json"
       ]
@@ -135,7 +138,7 @@ A Http Request
   "level": 100,
   "level_name": "DEBUG",
   "channel": "testing",
-  "datetime": "2023-08-16T00:41:12.546002+00:00",
+  "datetime": "2023-08-16T10:13:41.356030+00:00",
   "extra": {}
 }
 ```
