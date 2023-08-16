@@ -24,6 +24,10 @@ php artisan vendor:publish --tag="http-logging-config"
 This is the contents of the published config file:
 
 ```php
+<?php
+
+// config for RobMellett/HttpLogging
+return [
     /*
      *  The Laravel Log Channel to send logs to.
      */
@@ -234,7 +238,6 @@ return [
 ```
 
 You can optionally add your own regular expressions to the `secure_json_formatter.regexes` config option.
-
 
 ```php
 <?php
