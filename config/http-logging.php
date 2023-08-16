@@ -31,6 +31,6 @@ return [
         'regexes' => [
             // e.g
             // '/Bearer\s\w+/',
-        ]
+        ],
     ],
 ];
