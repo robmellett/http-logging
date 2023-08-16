@@ -2,7 +2,6 @@
 
 namespace RobMellett\HttpLogging;
 
-use RobMellett\HttpLogging\Commands\HttpLoggingCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 

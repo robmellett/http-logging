@@ -2,8 +2,6 @@
 
 namespace RobMellett\HttpLogging\Tests\Feature;
 
-use GuzzleHttp\Middleware;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
@@ -11,7 +9,6 @@ use Mockery\MockInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use RobMellett\HttpLogging\HttpLogging;
-use RobMellett\HttpLogging\Support\SecureJsonFormatter;
 use RobMellett\HttpLogging\Tests\TestCase;
 
 class HttpLoggingTest extends TestCase

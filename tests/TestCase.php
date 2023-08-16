@@ -3,9 +3,6 @@
 namespace RobMellett\HttpLogging\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Monolog\Formatter\JsonFormatter;
-use Monolog\Handler\NullHandler;
-use Monolog\Handler\StreamHandler;
 use Orchestra\Testbench\TestCase as Orchestra;
 use RobMellett\HttpLogging\HttpLoggingServiceProvider;
 use RobMellett\HttpLogging\Support\SecureJsonFormatter;
