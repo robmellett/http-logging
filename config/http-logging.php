@@ -21,7 +21,7 @@ return [
          * By default, we will attempt to look for secrets in the Laravel 'config/services.php'.
          *
          * Any values that contain the following words will be redacted:
-         * "key", "secret", "hash", "token"
+         * "key", "secret", "password", "hash", "token"
          */
         'extract_service_secrets' => true,
 

@@ -41,7 +41,7 @@ class SecureJsonFormatter extends JsonFormatter
 
         return collect($flattenedServices)
             ->filter(function ($value, $key) {
-                return Str::of($key)->lower()->contains(['api', 'key', 'secret', 'hash', 'token']);
+                return Str::of($key)->lower()->contains(['api', 'key', 'secret', 'password', 'hash', 'token']);
             })
             ->values()
             ->filter()

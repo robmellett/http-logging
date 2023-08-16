@@ -24,11 +24,45 @@ php artisan vendor:publish --tag="http-logging-config"
 This is the contents of the published config file:
 
 ```php
-return [
     /*
      *  The Laravel Log Channel to send logs to.
      */
     'channel' => 'http_logs',
+
+    /*
+     * Customize how the Secure Json Formatter redacts secrets.
+     */
+    'secure_json_formatter' => [
+
+        /*
+         * Secret Values will be replaced with this value.
+         */
+        'redacted_value' => '[--REDACTED--]',
+
+        /*
+         * By default, we will attempt to look for secrets in the Laravel 'config/services.php'.
+         *
+         * Any values that contain the following words will be redacted:
+         * "key", "secret", "password", "hash", "token"
+         */
+        'extract_service_secrets' => true,
+
+        /*
+         * Specific values to redact from the logs.
+         */
+        'secrets' => [
+            // e.g
+            // env('API_SECRET'),
+        ],
+
+        /*
+         * Regular expressions to redact from the logs.
+         */
+        'regexes' => [
+            // e.g
+            // '/Bearer\s\w+/',
+        ],
+    ],
 ];
 ```
 
@@ -57,10 +91,11 @@ You can configure the Log Formatter by adding the following to the Laravel loggi
         'path' => storage_path('logs/laravel.log'),
         'level' => 'debug',
 
-        'formatter' => Monolog\Formatter\JsonFormatter::class,
+        // This will remove sensitive values such as "key", "secret", "hash", "token" from the logs
+        'formatter' => RobMellett\HttpLogging\Support\SecureJsonFormatter::class
         
-        // or if you want to remove sensitive data from the logs
-        //'formatter' => RobMellett\HttpLogging\Support\SecureMessageFormatter::class
+        // Or if you would prefer to send sensitive data to the logs
+        //'formatter' => Monolog\Formatter\JsonFormatter::class,
     ],
 ]
 ```
