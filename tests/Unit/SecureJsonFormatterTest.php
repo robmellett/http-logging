@@ -49,6 +49,36 @@ class SecureJsonFormatterTest extends TestCase
         $this->assertStringContainsString('[--REDACTED--]', $result);
     }
 
+    /** @test */
+    public function can_extract_secrets_from_services_config()
+    {
+        config()->set('services', [
+            'google' => [
+                'client_id' => env('GOOGLE_CLIENT_ID'),
+                'client_secret' => env('GOOGLE_CLIENT_SECRET', 'Ym9zY236Ym9zY28='),
+                'redirect' => env('GOOGLE_REDIRECT', '/nova/google/callback'),
+            ],
+
+            'mailgun' => [
+                'domain' => env('MAILGUN_DOMAIN'),
+                'secret' => env('MAILGUN_SECRET', '+0*RU{ULbv5svWK'),
+                'endpoint' => env('MAILGUN_ENDPOINT', 'api.mailgun.net'),
+            ],
+        ]);
+
+        $formatter = new SecureJsonFormatter();
+
+        $result = $formatter->format(
+            $this->fakeLogRecord(
+                $this->fakeLogContext()
+            )
+        );
+
+        $this->assertStringNotContainsString('Ym9zY236Ym9zY28=', $result);
+
+        $this->assertStringContainsString('[--REDACTED--]', $result);
+    }
+
     private function fakeLogContext(): array
     {
         return [
