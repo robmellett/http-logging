@@ -25,6 +25,10 @@ This is the contents of the published config file:
 
 ```php
 return [
+    /*
+     *  The Laravel Log Channel to send logs to.
+     */
+    'channel' => 'http_logs',
 ];
 ```
 
@@ -40,7 +44,7 @@ Http::withMiddleware(new HttpLogging())
     ->get('https://jsonplaceholder.typicode.com/posts');
 ```
 
-You can configure the Log Formatter by adding the following to the logging config file.
+You can configure the Log Formatter by adding the following to the Laravel logging config file.
 
 ```php
 // config/logging.php
