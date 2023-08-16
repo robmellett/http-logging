@@ -30,7 +30,7 @@ class TestCase extends Orchestra
         config()->set('database.default', 'testing');
 
         // Write to log file
-        config()->set('logging.channels.http_logging', [
+        config()->set('logging.channels.http_logs', [
             'driver' => 'single',
             'path' => storage_path('logs/laravel.log'),
             'level' => 'debug',
