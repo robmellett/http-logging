@@ -190,6 +190,73 @@ A Http Response
 }
 ```
 
+## Secure Json Formatter
+
+By default, we will attempt to flatten the Laravel `config/services.php` array and find any keys that contain the words `key`, `secret`, `password`, `hash`, `token` and exclude them from the logs.
+
+You can disable this functionality by setting the `secure_json_formatter.extract_service_secrets` config option to `false`.
+
+```php
+<?php
+
+return [
+    /*
+     * Customize how the Secure Json Formatter redacts secrets.
+     */
+    'secure_json_formatter' => [
+        // ...previous values
+    
+        'extract_service_secrets' => false,
+    ],
+];
+```
+
+You can optionally add your own keys to the `secure_json_formatter.secrets` config option.
+
+```php
+<?php
+
+return [
+    /*
+     * Customize how the Secure Json Formatter redacts secrets.
+     */
+    'secure_json_formatter' => [
+        // ...previous values
+    
+        /*
+         * Specific values to redact from the logs.
+         */
+        'secrets' => [
+            env('SERVICE_API_SECRET'),
+        ],
+    ],
+];
+```
+
+You can optionally add your own regular expressions to the `secure_json_formatter.regexes` config option.
+
+
+```php
+<?php
+
+return [
+    /*
+     * Customize how the Secure Json Formatter redacts secrets.
+     */
+    'secure_json_formatter' => [
+        // ...previous values
+    
+        /*
+         * Regular expressions to redact from the logs.
+         */
+        'regexes' => [
+            // e.g
+            '/Bearer\s\w+/',
+        ],
+    ],
+];
+```
+
 ## Testing
 
 ```bash
