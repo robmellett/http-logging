@@ -3,9 +3,12 @@
 namespace RobMellett\HttpLogging\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Monolog\Formatter\JsonFormatter;
 use Monolog\Handler\NullHandler;
+use Monolog\Handler\StreamHandler;
 use Orchestra\Testbench\TestCase as Orchestra;
 use RobMellett\HttpLogging\HttpLoggingServiceProvider;
+use RobMellett\HttpLogging\Support\SecureMessageFormatter;
 
 class TestCase extends Orchestra
 {
@@ -30,8 +33,11 @@ class TestCase extends Orchestra
         config()->set('database.default', 'testing');
 
         config()->set('logging.channels.http_logging', [
-            'driver' => 'monolog',
-            'handler' => NullHandler::class,
+            'driver' => 'single',
+            'path' => storage_path('logs/laravel.log'),
+            'level' => 'debug',
+
+            'formatter' => \Monolog\Formatter\JsonFormatter::class,
         ]);
 
         /*
