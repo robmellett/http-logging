@@ -11,7 +11,7 @@ use Mockery\MockInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use RobMellett\HttpLogging\HttpLogging;
-use RobMellett\HttpLogging\Support\SecureMessageFormatter;
+use RobMellett\HttpLogging\Support\SecureJsonFormatter;
 use RobMellett\HttpLogging\Tests\TestCase;
 
 class HttpLoggingTest extends TestCase
@@ -79,7 +79,7 @@ class HttpLoggingTest extends TestCase
         $response = Http::withMiddleware(
             Middleware::log(
                 App::get('log')->channel(config('http-logging.channel')),
-                new SecureMessageFormatter(),
+                new SecureJsonFormatter(),
                 'debug'
             )
         )

@@ -8,7 +8,7 @@ use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Orchestra\Testbench\TestCase as Orchestra;
 use RobMellett\HttpLogging\HttpLoggingServiceProvider;
-use RobMellett\HttpLogging\Support\SecureMessageFormatter;
+use RobMellett\HttpLogging\Support\SecureJsonFormatter;
 
 class TestCase extends Orchestra
 {
@@ -38,7 +38,7 @@ class TestCase extends Orchestra
             'path' => storage_path('logs/laravel.log'),
             'level' => 'debug',
 
-            'formatter' => SecureMessageFormatter::class,
+            'formatter' => SecureJsonFormatter::class,
         ]);
 
         /*
