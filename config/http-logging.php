@@ -5,5 +5,5 @@ return [
     /*
      *  The Laravel Log Channel to send logs to.
      */
-    'channel' => 'http_logging'
+    'channel' => 'http_logs'
 ];
