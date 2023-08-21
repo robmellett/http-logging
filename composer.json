@@ -1,6 +1,6 @@
 {
     "name": "robmellett/http-logging",
-    "description": "Laravel HTTP Logging Middleware",
+    "description": "A small lightweight package to log all Guzzle http request and responses in Laravel.",
     "keywords": [
         "robmellett",
         "laravel",
