@@ -8,7 +8,7 @@ use Monolog\LogRecord;
 
 class SecureJsonFormatter extends JsonFormatter
 {
-    public function format(LogRecord $record): string
+    public function format(array|LogRecord $record): string
     {
         $result = parent::format($record);
 
