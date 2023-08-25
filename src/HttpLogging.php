@@ -9,6 +9,17 @@ use Psr\Http\Message\ResponseInterface;
 
 class HttpLogging
 {
+    /*
+     * Laravel Log Channel to send logs to.
+     */
+    protected string $channel;
+
+    public function __construct(
+        private array $config = []
+    ) {
+        $this->channel = $config['channel'] ?? config('http-logging.channel');
+    }
+
     public function __invoke(callable $handler)
     {
         $uuid = app(Str::class)->uuid();
@@ -28,9 +39,7 @@ class HttpLogging
 
     private function logRequest(string $uuid, RequestInterface $request): void
     {
-        $channel = config('http-logging.channel');
-
-        Log::channel($channel)->debug("Request {$uuid}", [
+        Log::channel($this->channel)->debug("Request {$uuid}", [
             'request_id' => $uuid,
             'method' => $request->getMethod(),
             'uri' => [
@@ -45,9 +54,7 @@ class HttpLogging
 
     private function logResponse(string $uuid, ResponseInterface $response): void
     {
-        $channel = config('http-logging.channel');
-
-        Log::channel($channel)->debug("Response {$uuid}", [
+        Log::channel($this->channel)->debug("Response {$uuid}", [
             'response_id' => $uuid,
             'status_code' => $response->getStatusCode(),
             'headers' => $response->getHeaders(),
