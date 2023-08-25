@@ -13,6 +13,11 @@ use RobMellett\HttpLogging\Tests\TestCase;
 
 class HttpLoggingTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+    }
+
     /** @test */
     public function can_fetch_requests_without_middleware()
     {
@@ -66,6 +71,21 @@ class HttpLoggingTest extends TestCase
             });
 
         $response = Http::withMiddleware(new HttpLogging())
+            ->withToken('Ym9zY236Ym9zY28=')
+            ->asJson()
+            ->get('https://jsonplaceholder.typicode.com/posts?userId=1');
+
+        $this->assertTrue($response->ok());
+    }
+
+    /** @test */
+    public function can_set_custom_channel_name()
+    {
+        $config = [
+            'channel' => 'custom_http_logs',
+        ];
+
+        $response = Http::withMiddleware(new HttpLogging($config))
             ->withToken('Ym9zY236Ym9zY28=')
             ->asJson()
             ->get('https://jsonplaceholder.typicode.com/posts?userId=1');
