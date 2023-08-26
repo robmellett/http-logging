@@ -13,7 +13,7 @@ class HttpLoggingIntegrationTest extends TestCase
     /** @test */
     public function can_write_to_logs_with_secure_json_formatter()
     {
-        if (InstalledVersions::getVersion('monolog/monolog') > '2.0.0') {
+        if (InstalledVersions::getVersion('monolog/monolog') < '2.0.0') {
             $this->markTestSkipped('This test is only for Monolog > 2.0.0+');
         }
 
@@ -40,7 +40,7 @@ class HttpLoggingIntegrationTest extends TestCase
     /** @test */
     public function can_write_to_logs_with_legacy_secure_json_formatter()
     {
-        if (InstalledVersions::getVersion('monolog/monolog') < '2.0.0') {
+        if (InstalledVersions::getVersion('monolog/monolog') > '2.0.0') {
             $this->markTestSkipped('This test is only for Monolog < 2.0.0+');
         }
 
