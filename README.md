@@ -263,6 +263,25 @@ return [
 ];
 ```
 
+Note: If you are using Laravel 9x, you need to use the `LegacySecureJsonFormatter` class instead.
+
+```php
+// config/logging.php
+
+'channels' => [
+    // ...Previous config
+    
+    'http_logs' => [
+        'driver' => 'single',
+        'path' => storage_path('logs/laravel.log'),
+        'level' => 'debug',
+
+        // This will remove sensitive values such as "key", "secret", "hash", "token" from the logs
+        'formatter' => RobMellett\HttpLogging\Support\LegacySecureJsonFormatter::class
+    ],
+]
+```
+
 ## Testing
 
 ```bash
