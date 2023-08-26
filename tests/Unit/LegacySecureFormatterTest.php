@@ -12,7 +12,7 @@ class LegacySecureJsonFormatterTest extends TestCase
     {
         parent::setUp();
 
-        if (InstalledVersions::getVersion('monolog/monolog') < '2.0.0') {
+        if (InstalledVersions::getVersion('monolog/monolog') <= '2.0.0') {
             $this->markTestSkipped('This test is only for Monolog < 2.0.0+');
         }
     }
@@ -117,14 +117,6 @@ class LegacySecureJsonFormatterTest extends TestCase
 
     private function fakeLogRecord(array $context = []): array
     {
-        // return new LogRecord(
-        //     now()->toDateTimeImmutable(),
-        //     'testing',
-        //     Level::Debug,
-        //     'Response 0b65fca7-a768-4832-8401-da52aa2885a9',
-        //     $context
-        // );
-
         return [
             now()->toDateTimeImmutable(),
             'testing',
