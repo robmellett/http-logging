@@ -4,10 +4,11 @@ namespace RobMellett\HttpLogging\Support;
 
 use Illuminate\Support\Str;
 use Monolog\Formatter\JsonFormatter;
+use Monolog\LogRecord;
 
 class LegacySecureJsonFormatter extends JsonFormatter
 {
-    public function format(array $record): string
+    public function format(array|LogRecord $record): string
     {
         $result = parent::format($record);
 
