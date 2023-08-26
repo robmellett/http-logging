@@ -39,7 +39,7 @@ class HttpLogging
 
     private function logRequest(string $uuid, RequestInterface $request): void
     {
-        Log::channel($this->channel)->debug("Request {$uuid}", [
+        Log::channel($this->channel)->debug("Request $uuid", [
             'request_id' => $uuid,
             'method' => $request->getMethod(),
             'uri' => [
@@ -54,7 +54,7 @@ class HttpLogging
 
     private function logResponse(string $uuid, ResponseInterface $response): void
     {
-        Log::channel($this->channel)->debug("Response {$uuid}", [
+        Log::channel($this->channel)->debug("Response $uuid", [
             'response_id' => $uuid,
             'status_code' => $response->getStatusCode(),
             'headers' => $response->getHeaders(),

@@ -9,6 +9,7 @@ use Mockery\MockInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use RobMellett\HttpLogging\HttpLogging;
+use RobMellett\HttpLogging\Support\SecureJsonFormatter;
 use RobMellett\HttpLogging\Tests\TestCase;
 
 class HttpLoggingTest extends TestCase
@@ -16,6 +17,14 @@ class HttpLoggingTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
+        $this->mock(Str::class, function (MockInterface $mock) {
+            $mock->shouldReceive('uuid')->andReturn('0b65fca7-a768-4832-8401-da52aa2885a9');
+        });
+
+        config()->set('http-logging.secure_json_formatter.secrets', [
+            'Ym9zY236Ym9zY28=',
+        ]);
     }
 
     /** @test */
@@ -50,14 +59,6 @@ class HttpLoggingTest extends TestCase
     /** @test */
     public function can_fetch_requests_with_middleware_class()
     {
-        config()->set('http-logging.secure_json_formatter.secrets', [
-            'Ym9zY236Ym9zY28=',
-        ]);
-
-        $this->mock(Str::class, function (MockInterface $mock) {
-            $mock->shouldReceive('uuid')->andReturn('0b65fca7-a768-4832-8401-da52aa2885a9');
-        });
-
         Log::shouldReceive('channel->debug')
             ->once()
             ->withArgs(function ($message) {
@@ -91,5 +92,28 @@ class HttpLoggingTest extends TestCase
             ->get('https://jsonplaceholder.typicode.com/posts?userId=1');
 
         $this->assertTrue($response->ok());
+    }
+
+    /** @test */
+    public function can_write_to_logs_with_secure_json_formatter()
+    {
+        $spy = $this->spy(SecureJsonFormatter::class);
+
+        config()->set('logging.channels.http_logs', [
+            'driver' => 'single',
+            'path' => storage_path('logs/laravel.log'),
+            'level' => 'debug',
+
+            'formatter' => SecureJsonFormatter::class,
+        ]);
+
+        $response = Http::withMiddleware(new HttpLogging([
+            'channel' => 'http_logs',
+        ]))
+            ->withToken('Ym9zY236Ym9zY28=')
+            ->asJson()
+            ->get('https://jsonplaceholder.typicode.com/posts?userId=1');
+
+        $spy->shouldHaveReceived('format')->twice();
     }
 }
