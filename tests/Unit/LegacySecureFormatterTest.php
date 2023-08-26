@@ -130,7 +130,7 @@ class LegacySecureJsonFormatterTest extends TestCase
             'testing',
             100,
             'Response 0b65fca7-a768-4832-8401-da52aa2885a9',
-            $context
+            $context,
         ];
     }
 }
