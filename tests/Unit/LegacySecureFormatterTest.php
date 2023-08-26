@@ -3,18 +3,16 @@
 namespace RobMellett\HttpLogging\Tests\Unit;
 
 use Composer\InstalledVersions;
-use Monolog\Level;
-use Monolog\LogRecord;
-use RobMellett\HttpLogging\Support\SecureJsonFormatter;
+use RobMellett\HttpLogging\Support\LegacySecureJsonFormatter;
 use RobMellett\HttpLogging\Tests\TestCase;
 
-class SecureJsonFormatterTest extends TestCase
+class LegacySecureJsonFormatterTest extends TestCase
 {
     protected function setUp(): void
     {
         parent::setUp();
 
-        if(InstalledVersions::getVersion('monolog/monolog') > '2.0.0') {
+        if (InstalledVersions::getVersion('monolog/monolog') < '2.0.0') {
             $this->markTestSkipped('This test is only for Monolog < 2.0.0+');
         }
     }
@@ -26,7 +24,7 @@ class SecureJsonFormatterTest extends TestCase
             'Ym9zY236Ym9zY28=',
         ]);
 
-        $formatter = new SecureJsonFormatter();
+        $formatter = new LegacySecureJsonFormatter();
 
         $result = $formatter->format(
             $this->fakeLogRecord(
@@ -46,7 +44,7 @@ class SecureJsonFormatterTest extends TestCase
             '/Bearer\s\w+/',
         ]);
 
-        $formatter = new SecureJsonFormatter();
+        $formatter = new LegacySecureJsonFormatter();
 
         $result = $formatter->format(
             $this->fakeLogRecord(
@@ -76,7 +74,7 @@ class SecureJsonFormatterTest extends TestCase
             ],
         ]);
 
-        $formatter = new SecureJsonFormatter();
+        $formatter = new LegacySecureJsonFormatter();
 
         $result = $formatter->format(
             $this->fakeLogRecord(
@@ -117,14 +115,22 @@ class SecureJsonFormatterTest extends TestCase
         ];
     }
 
-    private function fakeLogRecord(array $context = []): LogRecord
+    private function fakeLogRecord(array $context = []): array
     {
-        return new LogRecord(
+        // return new LogRecord(
+        //     now()->toDateTimeImmutable(),
+        //     'testing',
+        //     Level::Debug,
+        //     'Response 0b65fca7-a768-4832-8401-da52aa2885a9',
+        //     $context
+        // );
+
+        return [
             now()->toDateTimeImmutable(),
             'testing',
-            Level::Debug,
+            100,
             'Response 0b65fca7-a768-4832-8401-da52aa2885a9',
             $context
-        );
+        ];
     }
 }
