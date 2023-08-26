@@ -11,8 +11,6 @@ use Psr\Http\Message\ResponseInterface;
 use RobMellett\HttpLogging\HttpLogging;
 use RobMellett\HttpLogging\Support\SecureJsonFormatter;
 use RobMellett\HttpLogging\Tests\TestCase;
-use TiMacDonald\Log\LogEntry;
-use TiMacDonald\Log\LogFake;
 
 class HttpLoggingTest extends TestCase
 {
