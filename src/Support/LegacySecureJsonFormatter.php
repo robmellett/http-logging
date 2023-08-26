@@ -4,7 +4,6 @@ namespace RobMellett\HttpLogging\Support;
 
 use Illuminate\Support\Str;
 use Monolog\Formatter\JsonFormatter;
-use Monolog\LogRecord;
 
 class LegacySecureJsonFormatter extends JsonFormatter
 {
