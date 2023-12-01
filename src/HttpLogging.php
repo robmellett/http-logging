@@ -49,6 +49,7 @@ class HttpLogging
                 'query' => $request->getUri()->getQuery(),
             ],
             'headers' => $request->getHeaders(),
+            'body' => json_decode($request->getBody(), true),
         ]);
     }
 
