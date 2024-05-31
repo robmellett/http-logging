@@ -2,7 +2,6 @@
 
 namespace Feature;
 
-use Composer\InstalledVersions;
 use Illuminate\Support\Facades\Http;
 use RobMellett\HttpLogging\HttpLogging;
 use RobMellett\HttpLogging\Support\SecureJsonFormatter;
