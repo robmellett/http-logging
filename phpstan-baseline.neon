@@ -4,8 +4,3 @@ parameters:
 			message: "#^Property RobMellett\\\\HttpLogging\\\\HttpLogging\\:\\:\\$config is never read, only written\\.$#"
 			count: 1
 			path: src/HttpLogging.php
-
-		-
-			message: "#^Parameter \\#1 \\$record of method Monolog\\\\Formatter\\\\JsonFormatter\\:\\:format\\(\\) expects Monolog\\\\LogRecord, array given\\.$#"
-			count: 1
-			path: src/Support/LegacySecureJsonFormatter.php
