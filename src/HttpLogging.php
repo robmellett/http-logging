@@ -9,13 +9,13 @@ use Psr\Http\Message\ResponseInterface;
 
 class HttpLogging
 {
-    /*
+    /**
      * Laravel Log Channel to send logs to.
      */
-    protected string $channel;
+    protected readonly string $channel;
 
     public function __construct(
-        private array $config = []
+        private readonly array $config = []
     ) {
         $this->channel = $config['channel'] ?? config('http-logging.channel');
     }
