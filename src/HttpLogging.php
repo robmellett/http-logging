@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use RobMellett\HttpLogging\Support\RemoveSecrets;
 
 class HttpLogging
 {
@@ -48,7 +49,9 @@ class HttpLogging
                 'path' => $request->getUri()->getPath(),
                 'query' => $request->getUri()->getQuery(),
             ],
-            'headers' => $request->getHeaders(),
+            'headers' => $this->replaceSensitiveValues(
+                $request->getHeaders()
+            ),
             'body' => json_decode($request->getBody(), true),
         ]);
     }
@@ -61,5 +64,10 @@ class HttpLogging
             'headers' => $response->getHeaders(),
             'body' => json_decode($response->getBody(), true),
         ]);
+    }
+
+    private function replaceSensitiveValues(array $values = []): array
+    {
+        return RemoveSecrets::from($values);
     }
 }
