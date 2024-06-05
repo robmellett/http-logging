@@ -18,7 +18,7 @@ class RemoveSecretsTest extends TestCase
                 'jsonplaceholder.typicode.com',
             ],
             'Authorization' => [
-                'Bearer ' . bin2hex(random_bytes(16)),
+                'Bearer '.bin2hex(random_bytes(16)),
             ],
             'Content-Type' => [
                 'application/json',
