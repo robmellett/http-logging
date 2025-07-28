@@ -26,7 +26,7 @@ class SecureJsonFormatterTest extends TestCase
             'Ym9zY236Ym9zY28=',
         ]);
 
-        $formatter = new SecureJsonFormatter();
+        $formatter = new SecureJsonFormatter;
 
         $result = $formatter->format(
             $this->fakeLogRecord(
@@ -46,7 +46,7 @@ class SecureJsonFormatterTest extends TestCase
             '/Bearer\s\w+/',
         ]);
 
-        $formatter = new SecureJsonFormatter();
+        $formatter = new SecureJsonFormatter;
 
         $result = $formatter->format(
             $this->fakeLogRecord(
@@ -76,7 +76,7 @@ class SecureJsonFormatterTest extends TestCase
             ],
         ]);
 
-        $formatter = new SecureJsonFormatter();
+        $formatter = new SecureJsonFormatter;
 
         $result = $formatter->format(
             $this->fakeLogRecord(

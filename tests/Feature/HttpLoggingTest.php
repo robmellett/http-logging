@@ -70,7 +70,7 @@ class HttpLoggingTest extends TestCase
                 return $message == 'Response 0b65fca7-a768-4832-8401-da52aa2885a9';
             });
 
-        $response = Http::withMiddleware(new HttpLogging())
+        $response = Http::withMiddleware(new HttpLogging)
             ->withToken('Ym9zY236Ym9zY28=')
             ->asJson()
             ->get('https://jsonplaceholder.typicode.com/posts?userId=1');
