@@ -10,6 +10,7 @@ use PHPUnit\Framework\Attributes\Test;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use RobMellett\HttpLogging\HttpLogging;
+use RobMellett\HttpLogging\Support\SecureJsonFormatter;
 use RobMellett\HttpLogging\Tests\TestCase;
 
 class HttpLoggingTest extends TestCase
@@ -82,6 +83,14 @@ class HttpLoggingTest extends TestCase
     #[Test]
     public function can_set_custom_channel_name()
     {
+        config()->set('logging.channels.custom_http_logs', [
+            'driver' => 'single',
+            'path' => storage_path('logs/laravel.log'),
+            'level' => 'debug',
+
+            'formatter' => SecureJsonFormatter::class,
+        ]);
+
         $config = [
             'channel' => 'custom_http_logs',
         ];
