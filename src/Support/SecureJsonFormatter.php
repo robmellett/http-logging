@@ -14,10 +14,6 @@ class SecureJsonFormatter extends JsonFormatter
 
         $redactedValue = config('http-logging.secure_json_formatter.redacted_value', '[--REDACTED--]');
 
-        foreach ($this->redactSecretsFromServices() as $secret) {
-            $result = str($result)->replace($secret, $redactedValue);
-        }
-
         foreach ($this->secretValuesToRedact() as $secret) {
             $result = str($result)->replace($secret, $redactedValue);
         }

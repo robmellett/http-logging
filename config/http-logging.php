@@ -18,14 +18,6 @@ return [
         'redacted_value' => '[--REDACTED--]',
 
         /*
-         * By default, we will attempt to look for secrets in the Laravel 'config/services.php'.
-         *
-         * Any values that contain the following words will be redacted:
-         * "key", "secret", "password", "hash", "token"
-         */
-        'extract_service_secrets' => true,
-
-        /*
          * Specific values to redact from the logs.
          */
         'secrets' => [
