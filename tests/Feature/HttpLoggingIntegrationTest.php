@@ -3,13 +3,14 @@
 namespace Feature;
 
 use Illuminate\Support\Facades\Http;
+use PHPUnit\Framework\Attributes\Test;
 use RobMellett\HttpLogging\HttpLogging;
 use RobMellett\HttpLogging\Support\SecureJsonFormatter;
 use RobMellett\HttpLogging\Tests\TestCase;
 
 class HttpLoggingIntegrationTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function can_write_to_logs_with_secure_json_formatter()
     {
         $spy = $this->spy(SecureJsonFormatter::class);
