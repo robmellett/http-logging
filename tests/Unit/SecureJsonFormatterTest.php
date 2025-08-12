@@ -2,9 +2,9 @@
 
 namespace RobMellett\HttpLogging\Tests\Unit;
 
-use Composer\InstalledVersions;
 use Monolog\Level;
 use Monolog\LogRecord;
+use PHPUnit\Framework\Attributes\Test;
 use RobMellett\HttpLogging\Support\SecureJsonFormatter;
 use RobMellett\HttpLogging\Tests\TestCase;
 
@@ -13,13 +13,9 @@ class SecureJsonFormatterTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
-        if (InstalledVersions::getVersion('monolog/monolog') <= '2.0.0') {
-            $this->markTestSkipped('This test is only for Monolog > 2.0.0+');
-        }
     }
 
-    /** @test */
+    #[Test]
     public function can_remove_secret_values_from_logs()
     {
         config()->set('http-logging.secure_json_formatter.secrets', [
@@ -39,7 +35,7 @@ class SecureJsonFormatterTest extends TestCase
         $this->assertStringContainsString('[--REDACTED--]', $result);
     }
 
-    /** @test */
+    #[Test]
     public function can_remove_regex_values_from_logs()
     {
         config()->set('http-logging.secure_json_formatter.regexes', [
@@ -59,7 +55,7 @@ class SecureJsonFormatterTest extends TestCase
         $this->assertStringContainsString('[--REDACTED--]', $result);
     }
 
-    /** @test */
+    #[Test]
     public function can_extract_secrets_from_services_config()
     {
         config()->set('services', [

@@ -6,9 +6,11 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Mockery\MockInterface;
+use PHPUnit\Framework\Attributes\Test;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use RobMellett\HttpLogging\HttpLogging;
+use RobMellett\HttpLogging\Support\SecureJsonFormatter;
 use RobMellett\HttpLogging\Tests\TestCase;
 
 class HttpLoggingTest extends TestCase
@@ -26,7 +28,7 @@ class HttpLoggingTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function can_fetch_requests_without_middleware()
     {
         $response = Http::get('https://jsonplaceholder.typicode.com/posts');
@@ -34,7 +36,7 @@ class HttpLoggingTest extends TestCase
         $this->assertTrue($response->ok());
     }
 
-    /** @test */
+    #[Test]
     public function can_fetch_requests_with_middleware()
     {
         $response = Http::withRequestMiddleware(
@@ -55,7 +57,7 @@ class HttpLoggingTest extends TestCase
         $this->assertTrue($response->ok());
     }
 
-    /** @test */
+    #[Test]
     public function can_fetch_requests_with_middleware_class()
     {
         Log::shouldReceive('channel->debug')
@@ -78,9 +80,17 @@ class HttpLoggingTest extends TestCase
         $this->assertTrue($response->ok());
     }
 
-    /** @test */
+    #[Test]
     public function can_set_custom_channel_name()
     {
+        config()->set('logging.channels.custom_http_logs', [
+            'driver' => 'single',
+            'path' => storage_path('logs/laravel.log'),
+            'level' => 'debug',
+
+            'formatter' => SecureJsonFormatter::class,
+        ]);
+
         $config = [
             'channel' => 'custom_http_logs',
         ];
