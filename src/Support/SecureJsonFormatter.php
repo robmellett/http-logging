@@ -2,7 +2,6 @@
 
 namespace RobMellett\HttpLogging\Support;
 
-use Illuminate\Support\Str;
 use Monolog\Formatter\JsonFormatter;
 use Monolog\LogRecord;
 
@@ -23,25 +22,6 @@ class SecureJsonFormatter extends JsonFormatter
         }
 
         return $result;
-    }
-
-    private function redactSecretsFromServices(): array
-    {
-        if (! config('http-logging.secure_json_formatter.extract_service_secrets')) {
-            return [];
-        }
-
-        $services = config('services', []);
-
-        $flattenedServices = array_reduce($services, 'array_merge', []);
-
-        return collect($flattenedServices)
-            ->filter(function ($value, $key) {
-                return Str::of($key)->lower()->contains(['api', 'key', 'secret', 'password', 'hash', 'token']);
-            })
-            ->values()
-            ->filter()
-            ->toArray();
     }
 
     private function secretValuesToRedact(): array
