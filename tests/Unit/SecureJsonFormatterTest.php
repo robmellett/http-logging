@@ -2,7 +2,6 @@
 
 namespace RobMellett\HttpLogging\Tests\Unit;
 
-use Composer\InstalledVersions;
 use Monolog\Level;
 use Monolog\LogRecord;
 use PHPUnit\Framework\Attributes\Test;
