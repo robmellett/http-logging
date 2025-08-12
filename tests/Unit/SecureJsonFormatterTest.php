@@ -14,10 +14,6 @@ class SecureJsonFormatterTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
-        if (InstalledVersions::getVersion('monolog/monolog') <= '2.0.0') {
-            $this->markTestSkipped('This test is only for Monolog > 2.0.0+');
-        }
     }
 
     #[Test]
