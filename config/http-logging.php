@@ -37,8 +37,7 @@ return [
          * Regular expressions to redact from the logs.
          */
         'regexes' => [
-            // e.g
-            // '/Bearer\s\w+/',
+            '/Bearer\s\w+/',
         ],
     ],
 ];
