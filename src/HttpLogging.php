@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Throwable;
 
 class HttpLogging
 {
@@ -39,27 +40,35 @@ class HttpLogging
 
     private function logRequest(string $uuid, RequestInterface $request): void
     {
-        Log::channel($this->channel)->debug("Request $uuid", [
-            'request_id' => $uuid,
-            'method' => $request->getMethod(),
-            'uri' => [
-                'scheme' => $request->getUri()->getScheme(),
-                'host' => $request->getUri()->getHost(),
-                'path' => $request->getUri()->getPath(),
-                'query' => $request->getUri()->getQuery(),
-            ],
-            'headers' => $request->getHeaders(),
-            'body' => json_decode($request->getBody(), true),
-        ]);
+        try {
+            Log::channel($this->channel)->debug("Request $uuid", [
+                'request_id' => $uuid,
+                'method' => $request->getMethod(),
+                'uri' => [
+                    'scheme' => $request->getUri()->getScheme(),
+                    'host' => $request->getUri()->getHost(),
+                    'path' => $request->getUri()->getPath(),
+                    'query' => $request->getUri()->getQuery(),
+                ],
+                'headers' => $request->getHeaders(),
+                'body' => json_decode($request->getBody(), true),
+            ]);
+        } catch (Throwable $throwable) {
+            report($throwable);
+        }
     }
 
     private function logResponse(string $uuid, ResponseInterface $response): void
     {
-        Log::channel($this->channel)->debug("Response $uuid", [
-            'response_id' => $uuid,
-            'status_code' => $response->getStatusCode(),
-            'headers' => $response->getHeaders(),
-            'body' => json_decode($response->getBody(), true),
-        ]);
+        try {
+            Log::channel($this->channel)->debug("Response $uuid", [
+                'response_id' => $uuid,
+                'status_code' => $response->getStatusCode(),
+                'headers' => $response->getHeaders(),
+                'body' => json_decode($response->getBody(), true),
+            ]);
+        } catch (Throwable $throwable) {
+            report($throwable);
+        }
     }
 }
