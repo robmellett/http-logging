@@ -2,6 +2,7 @@
 
 namespace RobMellett\HttpLogging;
 
+use Closure;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Psr\Http\Message\RequestInterface;
@@ -16,14 +17,14 @@ class HttpLogging
     protected readonly string $channel;
 
     public function __construct(
-        private readonly array $config = []
+        public readonly array $config = []
     ) {
         $this->channel = $config['channel'] ?? config('http-logging.channel');
     }
 
-    public function __invoke(callable $handler)
+    public function __invoke(callable $handler): Closure
     {
-        $uuid = app(Str::class)->uuid();
+        $uuid = (string) app(Str::class)->uuid();
 
         return function (RequestInterface $request, array $options) use ($handler, $uuid) {
             $this->logRequest($uuid, $request);
@@ -51,7 +52,7 @@ class HttpLogging
                     'query' => $request->getUri()->getQuery(),
                 ],
                 'headers' => $request->getHeaders(),
-                'body' => json_decode($request->getBody(), true),
+                'body' => json_decode((string) $request->getBody(), true),
             ]);
         } catch (Throwable $throwable) {
             report($throwable);
@@ -65,7 +66,7 @@ class HttpLogging
                 'response_id' => $uuid,
                 'status_code' => $response->getStatusCode(),
                 'headers' => $response->getHeaders(),
-                'body' => json_decode($response->getBody(), true),
+                'body' => json_decode((string) $response->getBody(), true),
             ]);
         } catch (Throwable $throwable) {
             report($throwable);
