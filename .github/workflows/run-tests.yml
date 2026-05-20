@@ -36,13 +36,14 @@ jobs:
             testbench: 11.*
           - laravel: 12.*
             testbench: 10.*
-
+          - laravel: 11.*
+            testbench: 9.*
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
