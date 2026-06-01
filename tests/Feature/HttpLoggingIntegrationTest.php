@@ -13,6 +13,8 @@ class HttpLoggingIntegrationTest extends TestCase
     #[Test]
     public function can_write_to_logs_with_secure_json_formatter()
     {
+        Http::fake(['*' => Http::response('[]', 200)]);
+
         $spy = $this->spy(SecureJsonFormatter::class);
 
         config()->set('logging.channels.http_logs', [
