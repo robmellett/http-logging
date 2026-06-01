@@ -19,6 +19,8 @@ class HttpLoggingTest extends TestCase
     {
         parent::setUp();
 
+        Http::fake(['*' => Http::response('[]', 200)]);
+
         $this->mock(Str::class, function (MockInterface $mock) {
             $mock->shouldReceive('uuid')->andReturn('0b65fca7-a768-4832-8401-da52aa2885a9');
         });
